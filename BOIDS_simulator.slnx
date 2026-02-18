@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BoidsBuisnessLogic/BoidsBuisnessLogic.csproj" />
+  <Project Path="BoidsCore/BoidsCore.csproj" />
+  <Project Path="BoidsDataAccess/BoidsDataAccess.csproj" />
+  <Project Path="BOIDS_simulator/BoidsPresentation.csproj" />
+</Solution>
