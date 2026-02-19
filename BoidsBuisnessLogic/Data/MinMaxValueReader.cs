@@ -16,9 +16,9 @@ namespace BoidsBuisnessLogic.Data
                 DataMaxY = points.Select(p => p.Y).Max(),
                 DataMinY = points.Select(p => p.Y).Min(),
 
-                DisplayMaxX = boidsSimulationConfig.Width,
+                DisplayMaxX = boidsSimulationConfig.Width-1,
                 DisplayMinX = 0,
-                DisplayMaxY = boidsSimulationConfig.Height,
+                DisplayMaxY = boidsSimulationConfig.Height-1,
                 DisplayMinY = 0
             };
 

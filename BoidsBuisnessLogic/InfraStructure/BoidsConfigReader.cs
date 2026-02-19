@@ -28,7 +28,7 @@ namespace BoidsBuisnessLogic.InfraStructure
             }
             else
             {
-                throw new Exception("Hiba: KOnfiguracio nem talalhato.");
+                throw new Exception("Hiba: Konfiguracio nem talalhato.");
             }
         }
     }

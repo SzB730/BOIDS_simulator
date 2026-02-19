@@ -10,25 +10,45 @@ namespace BoidsPresentation
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.WriteLine("BOIDS simulator");
-            var simulationConfig = BoidsConfigReader.Load(@"C:\Users\bazsi\Documents\programozascsharp\BoidsConfig.json");
+            var simulationConfig = BoidsConfigReader.Load(@"C:\Users\bazsi\Documents\sze\dotnet\boidSimulator\BoidsConfig.json");
             Console.ReadLine();
             var drawer = new Drawer(simulationConfig);
             drawer.DrawEmpty();
 
-            var points = new SampleDataGenerator().GenerateSampleDataPoints();
-            var minMaxValues = new MinMaxValueReader().Read(simulationConfig,points);
+            var previousPointsTemp = new List<PointOnScreen>();
 
+            //for (double i = 0; i < 1000; i += 0.01)
+            //{
+            //    var points = new SampleDataGenerator().GenerateSampleDataPoints(i);
+            //    var minMaxValues = new MinMaxValueReader().Read(simulationConfig, points);
+            //    var pointsOnScreen = new PointsScaler().Scale(minMaxValues, points);
+            //    drawer.DrawPointsOnScreen(previousPointsTemp, isClear: true);
+            //    drawer.DrawPointsOnScreen(pointsOnScreen);
+            //    previousPointsTemp.Clear();
+            //    previousPointsTemp.AddRange(pointsOnScreen);
+            //}
+
+            for (double i = 0; i < 1000; i += 0.01)
+            {
+                var points = new SampleDataGenerator().GenerateSampleDataPoints(i);
+                var minMaxValues = new MinMaxValueReader().Read(simulationConfig, points);
+                var pointsOnScreen = new PointsScaler().QuadrantScale(minMaxValues, points);
+                drawer.DrawPointsOnScreen(previousPointsTemp, isClear: true);
+                drawer.DrawQuadrantPointsOnScreen(pointsOnScreen);
+                previousPointsTemp.Clear();
+                previousPointsTemp.AddRange(pointsOnScreen);
+            }
 
 
             /*
-
-            /*
+             * Játéktér beállítása konzolról
             Console.Write("Kerem a jatekter szelesseget: ");
             var widthString = Console.ReadLine();
-            //var width = Convert.ToInt32(widthString);
-            //var width = 0; // nem muszaj definialni a konverzioban is lehet out int width
-            //var isWidthSuccess = Int32.TryParse(widthString, out width);
+            var width = Convert.ToInt32(widthString);
+            var width = 0; // nem muszaj definialni a konverzioban is lehet out int width
+            var isWidthSuccess = Int32.TryParse(widthString, out width);
             
             var width = 0;
             var isWidthSuccess = false;
