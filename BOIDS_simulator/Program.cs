@@ -3,6 +3,7 @@ using BoidsBuisnessLogic.Samples;
 using BoidsCore.Configuration;
 using BoidsPresentation.Visualization;
 using BoidsBuisnessLogic.Data;
+using BoidsBuisnessLogic.Simulation;
 
 namespace BoidsPresentation
 {
@@ -12,24 +13,23 @@ namespace BoidsPresentation
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.WriteLine("BOIDS simulator");
-            var simulationConfig = BoidsConfigReader.Load(@"C:\Users\bazsi\Documents\sze\dotnet\boidSimulator\BoidsConfig.json");
+            var simulationConfig = BoidsConfigReader.Load(@"C:\Users\bazsi\Documents\programozascsharp\BoidsConfig.json");
             Console.ReadLine();
             var drawer = new Drawer(simulationConfig);
             drawer.DrawEmpty();
 
             var previousPointsTemp = new List<PointOnScreen>();
 
-            //for (double i = 0; i < 1000; i += 0.01)
-            //{
-            //    var points = new SampleDataGenerator().GenerateSampleDataPoints(i);
-            //    var minMaxValues = new MinMaxValueReader().Read(simulationConfig, points);
-            //    var pointsOnScreen = new PointsScaler().Scale(minMaxValues, points);
-            //    drawer.DrawPointsOnScreen(previousPointsTemp, isClear: true);
-            //    drawer.DrawPointsOnScreen(pointsOnScreen);
-            //    previousPointsTemp.Clear();
-            //    previousPointsTemp.AddRange(pointsOnScreen);
-            //}
-
+            /*for (double i = 0; i < 1000; i += 0.01)
+            {
+                var points = new SampleDataGenerator().GenerateSampleDataPoints(i);
+                var minMaxValues = new MinMaxValueReader().Read(simulationConfig, points);
+                var pointsOnScreen = new PointsScaler().Scale(minMaxValues, points);
+                drawer.DrawPointsOnScreen(previousPointsTemp, isClear: true);
+                drawer.DrawPointsOnScreen(pointsOnScreen);
+                previousPointsTemp.Clear();
+                previousPointsTemp.AddRange(pointsOnScreen);
+            }
             for (double i = 0; i < 1000; i += 0.01)
             {
                 var points = new SampleDataGenerator().GenerateSampleDataPoints(i);
@@ -40,10 +40,8 @@ namespace BoidsPresentation
                 previousPointsTemp.Clear();
                 previousPointsTemp.AddRange(pointsOnScreen);
             }
-
-
-            /*
-             * Játéktér beállítása konzolról
+            
+             Játéktér beállítása konzolról
             Console.Write("Kerem a jatekter szelesseget: ");
             var widthString = Console.ReadLine();
             var width = Convert.ToInt32(widthString);
@@ -86,9 +84,23 @@ namespace BoidsPresentation
             BoidsSimulationConfig.Width = width;
             BoidsSimulationConfig.Height = height;
             BoidsSimulationConfig.BoidCount = boidCount;
-             
             */
 
+            var boidsSimulator = new BoidsSimulator(simulationConfig, seed: 123);
+            for (int i = 0; i < 10000; i++)
+            {
+                var points = boidsSimulator.GetBoidPositions();
+                var minMaxValues = new MinMaxValueReader().Read(simulationConfig, points, isNoZoom: true);
+                var pointsOnScreen = new PointsScaler().QuadrantScale(minMaxValues, points);
+                drawer.DrawPointsOnScreen(previousPointsTemp, isClear: true);
+                drawer.DrawQuadrantPointsOnScreen(pointsOnScreen);
+                boidsSimulator.NextStep();
+                //sleep
+                previousPointsTemp.Clear();
+                previousPointsTemp.AddRange(pointsOnScreen);
+            }
+
+            Console.SetCursorPosition(0, simulationConfig.DisplayHeight + 1);
             Console.WriteLine();
             Console.WriteLine("A kilepeshez nyomj egy entert");
             Console.ReadLine();

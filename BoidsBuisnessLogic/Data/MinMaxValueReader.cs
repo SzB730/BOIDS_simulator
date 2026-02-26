@@ -7,18 +7,18 @@ namespace BoidsBuisnessLogic.Data
 {
     public class MinMaxValueReader
     {
-        public MinMaxValues Read(BoidsSimulationConfig boidsSimulationConfig, List<Point> points)
+        public MinMaxValues Read(BoidsSimulationConfig boidsSimulationConfig, List<Point> points, bool isNoZoom = false)
         {
             var minMaxValues = new MinMaxValues()
             {
-                DataMaxX = points.Select(p => p.X).Max(),
-                DataMinX = points.Select(p => p.X).Min(),
-                DataMaxY = points.Select(p => p.Y).Max(),
-                DataMinY = points.Select(p => p.Y).Min(),
+                DataMaxX = isNoZoom ? boidsSimulationConfig.SimulationWidth : points.Select(p => p.X).Max(),
+                DataMinX = isNoZoom ? 0 : points.Select(p => p.X).Min(),
+                DataMaxY = isNoZoom ? boidsSimulationConfig.SimulationHeight : points.Select(p => p.Y).Max(),
+                DataMinY = isNoZoom ? 0 : points.Select(p => p.Y).Min(),
 
-                DisplayMaxX = boidsSimulationConfig.Width-1,
+                DisplayMaxX = boidsSimulationConfig.DisplayWidth-1,
                 DisplayMinX = 0,
-                DisplayMaxY = boidsSimulationConfig.Height-1,
+                DisplayMaxY = boidsSimulationConfig.DisplayHeight-1,
                 DisplayMinY = 0
             };
 

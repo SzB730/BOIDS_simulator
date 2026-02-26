@@ -6,14 +6,14 @@ namespace BoidsBuisnessLogic.Data
 {
     public class MinMaxValues
     {
-        public double DataMinX { get; set; }
-        public double DataMaxX { get; set; }
-        public double DataMinY { get; set; }
-        public double DataMaxY { get; set; }
+        public float DataMinX { get; set; }
+        public float DataMaxX { get; set; }
+        public float DataMinY { get; set; }
+        public float DataMaxY { get; set; }
 
-        public double DisplayMinX { get; set; }
-        public double DisplayMaxX { get; set; }
-        public double DisplayMinY { get; set; }
-        public double DisplayMaxY { get; set; }
+        public float DisplayMinX { get; set; }
+        public float DisplayMaxX { get; set; }
+        public float DisplayMinY { get; set; }
+        public float DisplayMaxY { get; set; }
     }
 }

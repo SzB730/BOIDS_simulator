@@ -14,8 +14,8 @@ namespace BoidsPresentation.Visualization
 
         public Drawer(BoidsSimulationConfig boidsSimulationConfig)
         {
-            _width = boidsSimulationConfig.Width;
-            _height = boidsSimulationConfig.Height;
+            _width = boidsSimulationConfig.DisplayWidth;
+            _height = boidsSimulationConfig.DisplayHeight;
             _boidCount = boidsSimulationConfig.BoidCount;
         }
 
