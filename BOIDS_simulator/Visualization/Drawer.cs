@@ -47,6 +47,7 @@ namespace BoidsPresentation.Visualization
         {
             foreach (var pointOnScreen in pointsOnScreen)
             {
+                Console.ForegroundColor = pointOnScreen.Color;
                 Console.SetCursorPosition(pointOnScreen.X, pointOnScreen.Y);
                 if (pointOnScreen.isBottomLeftQuadrant && pointOnScreen.isBottomRightQuadrant && pointOnScreen.isTopLeftQuadrant && pointOnScreen.isTopRightQuadrant)
                 {

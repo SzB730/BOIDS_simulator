@@ -9,6 +9,8 @@ namespace BoidsBuisnessLogic.Data
         public int X {  get; set; }
         public int Y { get; set; }
 
+        public ConsoleColor Color { get; set; }
+
         public bool isBottomLeftQuadrant { get; set; }
         public bool isBottomRightQuadrant { get; set; }
         public bool isTopLeftQuadrant { get; set; }

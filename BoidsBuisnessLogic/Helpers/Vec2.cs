@@ -54,6 +54,11 @@ namespace BoidsBuisnessLogic.Helpers
             return new Vec2(lhs.X - rhs.X, lhs.Y - rhs.Y);
         }
 
+        public static Vec2 operator -(Vec2 v)
+        {
+            return new Vec2(-v.X, -v.Y);
+        }
+
         public static Vec2 operator *(Vec2 lhs, float rhs)
         {
             return new Vec2(lhs.X * rhs, lhs.Y * rhs);
